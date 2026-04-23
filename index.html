@@ -89,6 +89,36 @@
         .tab.active { display:block; }
         @keyframes fade { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
+        /* EFEITO ESCREVER FRASE */
+        .typing-container {
+            text-align: center;
+            padding: 10px;
+            font-weight: 700;
+            color: #fff;
+            font-size: 13px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .typing-effect {
+            display: inline-block;
+            overflow: hidden;
+            border-right: 2px solid #fff;
+            white-space: nowrap;
+            width: 0;
+            animation: typing 3.5s steps(40, end) forwards, blink .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: #fff }
+        }
+
         /* PLAYER */
         .player { 
             position: absolute; 
@@ -170,7 +200,9 @@
         <div class="tabs-content">
             <div class="tab active" id="perfil">
                 <h1 style="text-align:center; font-size: 32px; padding-top: 20px;">♥ CHIMI ♥</h1>
-                <p style="text-align:center; opacity:0.5; font-size: 12px; padding: 10px 10px;">Moral alta , mente fria ,mala fama y boa vida.!!!</p>
+                <div class="typing-container">
+                    <span class="typing-effect">Moral alta, mente fria, mala fama y boa vida.!!!</span>
+                </div>
             </div>
 
             <div class="tab" id="amigos" style="text-align:center;">
