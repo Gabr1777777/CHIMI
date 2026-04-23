@@ -9,14 +9,14 @@
         /* RESET E CURSOR */
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; cursor: default !important; user-select: none !important; -webkit-user-drag: none !important; }
         
-        /* FONDO AJUSTADO PARA RESOLUÇÃO */
+        /* FONDO AJUSTADO - CORREÇÃO DE PISCADA BRANCA */
         body { 
             height:100vh; 
             display:flex; 
             justify-content:center; 
             align-items:center; 
-            background: url('https://i.imgur.com/bLUrRsa.gif') no-repeat center center fixed; 
-            background-size: 100% 100%; 
+            background: #2b121a url('https://i.imgur.com/bLUrRsa.gif') no-repeat center center fixed; 
+            background-size: cover; 
             overflow: hidden; 
         }
 
@@ -53,12 +53,12 @@
             100% { transform: translateY(110vh) rotate(45deg) scale(1.2); opacity:0; } 
         }
 
-        /* INTRO */
+        /* INTRO - CORREÇÃO DE PISCADA BRANCA */
         .intro { 
             position:fixed; 
             inset:0; 
-            background: url('https://i.imgur.com/bLUrRsa.gif') no-repeat center center fixed; 
-            background-size: 100% 100%; 
+            background: #2b121a url('https://i.imgur.com/bLUrRsa.gif') no-repeat center center fixed; 
+            background-size: cover; 
             display:flex; 
             justify-content:center; 
             align-items:center; 
