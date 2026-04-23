@@ -1,282 +1,280 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHIMI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        /* RESET E CURSOR */
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; cursor: default !important; }
-        
-        /* FONDO CON NOVO GIF AJUSTADO */
-        body { 
-            height:100vh; 
-            display:flex; 
-            justify-content:center; 
-            align-items:center; 
-            background: url('https://i.imgur.com/SYXIL2T.gif') no-repeat center center fixed; 
-            background-size: cover; 
-            overflow: hidden; 
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHIMI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* RESET E CURSOR */
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; cursor: default !important; }
+        
+        /* FONDO CON NOVO GIF AJUSTADO */
+        body { 
+            height:100vh; 
+            display:flex; 
+            justify-content:center; 
+            align-items:center; 
+            background: url('https://i.imgur.com/SYXIL2T.gif') no-repeat center center fixed; 
+            background-size: cover; 
+            overflow: hidden; 
+        }
 
-        /* CHUVA DE CORAÇÕES */
-        .hearts-container { position:fixed; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:-1; pointer-events:none; }
-        .falling-heart { position:absolute; width:20px; height:20px; background: radial-gradient(circle, #ff9ebb, #ff4f92); transform: rotate(45deg); animation: fall linear infinite; opacity:0.7; border-radius: 2px; }
-        .falling-heart::before, .falling-heart::after { content:""; position:absolute; width:20px; height:20px; background: inherit; border-radius:50%; }
-        .falling-heart::before { top:-10px; left:0; }
-        .falling-heart::after { left:-10px; top:0; }
-        @keyframes fall { 
-            0% { transform: translateY(-10vh) rotate(45deg) scale(0.5); opacity:0; } 
-            10% { opacity:0.8; } 
-            100% { transform: translateY(110vh) rotate(45deg) scale(1.2); opacity:0; } 
-        }
+        /* CHUVA DE CORAÇÕES */
+        .hearts-container { position:fixed; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:-1; pointer-events:none; }
+        .falling-heart { position:absolute; width:20px; height:20px; background: radial-gradient(circle, #ff9ebb, #ff4f92); transform: rotate(45deg); animation: fall linear infinite; opacity:0.7; border-radius: 2px; }
+        .falling-heart::before, .falling-heart::after { content:""; position:absolute; width:20px; height:20px; background: inherit; border-radius:50%; }
+        .falling-heart::before { top:-10px; left:0; }
+        .falling-heart::after { left:-10px; top:0; }
+        @keyframes fall { 
+            0% { transform: translateY(-10vh) rotate(45deg) scale(0.5); opacity:0; } 
+            10% { opacity:0.8; } 
+            100% { transform: translateY(110vh) rotate(45deg) scale(1.2); opacity:0; } 
+        }
 
-        /* INTRO */
-        .intro { position:fixed; inset:0; background: url('https://i.imgur.com/SYXIL2T.gif') no-repeat center center fixed; background-size: cover; display:flex; justify-content:center; align-items:center; z-index:9999; transition:1s; }
-        .intro.hide { opacity:0; pointer-events:none; }
-        .enter-btn { padding:14px 40px; border-radius:30px; border:none; background:linear-gradient(90deg,#f579a8,#fc84b6); color:#fff; letter-spacing:2px; font-weight:600; cursor: pointer !important; }
+        /* INTRO - FUNDO ALTERADO PARA O GIF */
+        .intro { position:fixed; inset:0; background: url('https://i.imgur.com/SYXIL2T.gif') no-repeat center center fixed; background-size: cover; display:flex; justify-content:center; align-items:center; z-index:9999; transition:1s; }
+        .intro.hide { opacity:0; pointer-events:none; }
+        .enter-btn { padding:14px 40px; border-radius:30px; border:none; background:linear-gradient(90deg,#f579a8,#fc84b6); color:#fff; letter-spacing:2px; font-weight:600; cursor: pointer !important; }
 
-        /* WRAPPER E PROFILE */
-        .wrapper { display:flex; align-items:center; gap:0; position: relative; left: 100px; opacity:0; transition:1s; }
-        .wrapper.show { opacity:1; }
+        /* WRAPPER E PROFILE */
+        .wrapper { display:flex; align-items:center; gap:0; position: relative; left: 100px; opacity:0; transition:1s; }
+        .wrapper.show { opacity:1; }
 
-        .profile { position:relative; width:390px; height:400px; padding:60px 10px 30px; border-radius:25px; background: rgba(235, 143, 181, 0.37); backdrop-filter: blur(25px); border:1px solid rgba(139, 21, 60, 0.075); box-shadow:0 30px 60px rgba(63, 33, 33, 0.7); color:#fff; z-index: 20; }
-        
-        /* 👇 POSIÇÃO ORIGINAL DA FOTO 👇 */
-        .avatar { position:absolute; top:-45px; left:-178px; width:200px; height:200px; border-radius:50%; border:21px solid #f3d3dfa1; overflow:hidden; z-index: 30; }
-        .avatar img { width:100%; height:100%; object-fit:cover; pointer-events: none; }
+        .profile { position:relative; width:390px; height:400px; padding:60px 10px 30px; border-radius:25px; background: rgba(235, 143, 181, 0.37); backdrop-filter: blur(25px); border:1px solid rgba(139, 21, 60, 0.075); box-shadow:0 30px 60px rgba(63, 33, 33, 0.7); color:#fff; z-index: 20; }
+        
+        .avatar { position:absolute; top:-45px; left:-178px; width:200px; height:200px; border-radius:50%; border:21px solid #f3d3dfa1; overflow:hidden; z-index: 30; }
+        .avatar img { width:100%; height:100%; object-fit:cover; pointer-events: none; }
 
-        /* TABS */
-        .menu { position:absolute; top: 0; left:50%; transform:translateX(-50%); display:flex; gap:8px; background: rgba(241, 137, 177, 0.6); padding:6px; border-radius:0 0 26px 26px; z-index:100; border: 1px solid rgba(255,255,255,0.1); border-top: none; }
-        .menu span { font-size:12px; opacity:0.6; padding:6px 14px; border-radius:20px; transition: 0.3s; cursor: pointer !important; }
-        .menu .active { background:linear-gradient(90deg,#f798bf,#db859f); opacity:1; }
-        
-        .tabs-content { position: relative; top: -30px; height: 100%; }
-        .tab { display:none; animation: fade 0.5s ease forwards; height: 100%; overflow-y: auto; padding-right: 5px; }
-        .tab::-webkit-scrollbar { width: 4px; }
-        .tab::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
-        .tab.active { display:block; }
-        @keyframes fade { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+        /* TABS */
+        .menu { position:absolute; top: 0; left:50%; transform:translateX(-50%); display:flex; gap:8px; background: rgba(241, 137, 177, 0.6); padding:6px; border-radius:0 0 26px 26px; z-index:100; border: 1px solid rgba(255,255,255,0.1); border-top: none; }
+        .menu span { font-size:12px; opacity:0.6; padding:6px 14px; border-radius:20px; transition: 0.3s; cursor: pointer !important; }
+        .menu .active { background:linear-gradient(90deg,#f798bf,#db859f); opacity:1; }
+        
+        .tabs-content { position: relative; top: -30px; height: 100%; }
+        .tab { display:none; animation: fade 0.5s ease forwards; height: 100%; overflow-y: auto; padding-right: 5px; }
+        .tab::-webkit-scrollbar { width: 4px; }
+        .tab::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        .tab.active { display:block; }
+        @keyframes fade { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
-        /* 👇 PLAYER NA LINHA VERMELHA 👇 */
-        .player { 
-            position: absolute; 
-            top: 153px; 
-            left: -171px; 
-            width:172px; padding:16px 15px 20px; border-radius:30px 30px 10px 10px; background: rgba(226, 147, 173, 0.6); backdrop-filter: blur(25px); color:#fff; text-align:center; box-shadow:0 10px 20px rgba(0,0,0,0.3); z-index: 10; border: 1px solid rgba(255,255,255,0.1); border-bottom: none; 
-        }
-        .player img { width:75px; height:75px; border-radius:50%; object-fit:cover; border:6px solid #d47096; animation: spin 6s linear infinite; animation-play-state: paused; pointer-events: none; }
-        .player.playing img { animation-play-state: running; }
-        @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
-        .controls { margin-top: 10px; display: flex; justify-content: center; gap: 10px; align-items: center;}
-        .controls button { background: none; border: none; color: #fff; font-size: 18px; cursor: pointer !important; }
-        
-        /* VOLUME SLIDER */
-        .volume-container { margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 5px; }
-        .volume-container input { width: 60px; height: 3px; cursor: pointer !important; accent-color: #ff4f92; }
+        /* PLAYER */
+        .player { 
+            position: absolute; 
+            top: 153px; 
+            left: -171px; 
+            width:172px; padding:16px 15px 20px; border-radius:30px 30px 10px 10px; background: rgba(226, 147, 173, 0.6); backdrop-filter: blur(25px); color:#fff; text-align:center; box-shadow:0 10px 20px rgba(0,0,0,0.3); z-index: 10; border: 1px solid rgba(255,255,255,0.1); border-bottom: none; 
+        }
+        .player img { width:75px; height:75px; border-radius:50%; object-fit:cover; border:6px solid #d47096; animation: spin 6s linear infinite; animation-play-state: paused; pointer-events: none; }
+        .player.playing img { animation-play-state: running; }
+        @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+        .controls { margin-top: 10px; display: flex; justify-content: center; gap: 10px; align-items: center;}
+        .controls button { background: none; border: none; color: #fff; font-size: 18px; cursor: pointer !important; }
+        
+        .volume-container { margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .volume-container input { width: 60px; height: 3px; cursor: pointer !important; accent-color: #ff4f92; }
 
-        /* EFEITO DE RASTRO */
-        .heart-particle { position: fixed; width: 10px; height: 10px; pointer-events: none; z-index: 999998; background: #f56e97; transform: rotate(45deg); animation: fadeOut 0.8s forwards; }
-        @keyframes fadeOut { to { transform: translateY(-15px) scale(0.5) rotate(45deg); opacity: 0; } }
+        /* EFEITO DE RASTRO */
+        .heart-particle { position: fixed; width: 10px; height: 10px; pointer-events: none; z-index: 999998; background: #f56e97; transform: rotate(45deg); animation: fadeOut 0.8s forwards; }
+        @keyframes fadeOut { to { transform: translateY(-15px) scale(0.5) rotate(45deg); opacity: 0; } }
 
-        /* ZOOM GALERIA */
-        .zoom-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.9); display:none; flex-direction:column; justify-content:center; align-items:center; z-index:10000; }
-        .zoom-overlay.active { display:flex; }
-        .zoom-overlay img { max-width:90%; max-height:80%; border-radius:15px; pointer-events: none; }
-        .close-zoom { margin-top:20px; padding:10px 30px; border-radius:20px; border:none; background:#f579a8; color:#fff; font-weight: 600; cursor: pointer !important; }
+        /* ZOOM GALERIA */
+        .zoom-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.9); display:none; flex-direction:column; justify-content:center; align-items:center; z-index:10000; }
+        .zoom-overlay.active { display:flex; }
+        .zoom-overlay img { max-width:90%; max-height:80%; border-radius:15px; pointer-events: none; }
+        .close-zoom { margin-top:20px; padding:10px 30px; border-radius:20px; border:none; background:#f579a8; color:#fff; font-weight: 600; cursor: pointer !important; }
 
-        /* GALERIA 3 POR LINHA */
-        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; justify-items: center; padding-top: 10px; }
-        .gallery-grid img { width: 80px; border-radius: 10px; cursor: pointer !important; transition: 0.3s; pointer-events: auto; }
+        /* GALERIA */
+        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; justify-items: center; padding-top: 10px; }
+        .gallery-grid img { width: 80px; border-radius: 10px; cursor: pointer !important; transition: 0.3s; pointer-events: auto; }
 
-        /* LISTA AMIGOS */
-        .friends-list { list-style: none; padding-top: 10px; }
-        .friends-list li { margin-bottom: 10px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
-        .friends-list a { color: inherit; text-decoration: none; cursor: pointer !important; }
-    </style>
+        /* LISTA AMIGOS */
+        .friends-list { list-style: none; padding-top: 10px; }
+        .friends-list li { margin-bottom: 10px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+        .friends-list a { color: inherit; text-decoration: none; cursor: pointer !important; }
+    </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 
 <div class="intro" id="intro">
-    <button class="enter-btn" id="enterBtn">ENTRAR</button>
+    <button class="enter-btn" id="enterBtn">ENTRAR</button>
 </div>
 
 <div class="hearts-container" id="heartsBg"></div>
 
 <div class="zoom-overlay" id="zoomOverlay">
-    <img src="" id="zoomImg">
-    <button class="close-zoom" onclick="closeZoom()">VOLVER</button>
+    <img src="" id="zoomImg">
+    <button class="close-zoom" onclick="closeZoom()">VOLVER</button>
 </div>
 
 <div class="wrapper" id="mainWrapper">
-    <div class="profile">
-        <div class="avatar"><img src="https://i.imgur.com/SwOWI7L.png"></div>
-        
-        <div class="player" id="playerBox">
-            <img id="cover" src="https://xatimg.com/image/qK8We4sUV6i7.png">
-            <div style="font-size:10px; margin:10px 0; height: 30px; overflow: hidden;">
-                <span id="musicName">Cargando...</span>
-            </div>
-            <div class="controls">
-                <button onclick="prev()">⏮</button>
-                <button onclick="togglePlay()" id="playBtn">▶</button>
-                <button onclick="next()">⏭</button>
-            </div>
-            <div class="volume-container">
-                <span style="font-size: 10px;">🔊</span>
-                <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5" oninput="changeVolume(this.value)">
-            </div>
-            <audio id="mainAudio"></audio>
-        </div>
+    <div class="profile">
+        <div class="avatar"><img src="https://i.imgur.com/SwOWI7L.png"></div>
+        
+        <div class="player" id="playerBox">
+            <img id="cover" src="https://xatimg.com/image/qK8We4sUV6i7.png">
+            <div style="font-size:10px; margin:10px 0; height: 30px; overflow: hidden;">
+                <span id="musicName">Cargando...</span>
+            </div>
+            <div class="controls">
+                <button onclick="prev()">⏮</button>
+                <button onclick="togglePlay()" id="playBtn">▶</button>
+                <button onclick="next()">⏭</button>
+            </div>
+            <div class="volume-container">
+                <span style="font-size: 10px;">🔊</span>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5" oninput="changeVolume(this.value)">
+            </div>
+            <audio id="mainAudio"></audio>
+        </div>
 
-        <div class="menu" id="tabMenu">
-            <span class="active" data-tab="perfil">PERFIL</span>
-            <span data-tab="amigos">AMIGOS</span>
-            <span data-tab="galeria">GALERÍA</span>
-        </div>
+        <div class="menu" id="tabMenu">
+            <span class="active" data-tab="perfil">PERFIL</span>
+            <span data-tab="amigos">AMIGOS</span>
+            <span data-tab="galeria">GALERÍA</span>
+        </div>
 
-        <div class="tabs-content">
-            <div class="tab active" id="perfil">
-                <h1 style="text-align:center; font-size: 32px; padding-top: 20px;">♥ CHIMI ♥</h1>
-                <p style="text-align:center; opacity:0.5; font-size: 12px; padding: 10px 10px;">Moral alta , mente fria ,mala fama y buena vida.!!!</p>
-            </div>
+        <div class="tabs-content">
+            <div class="tab active" id="perfil">
+                <h1 style="text-align:center; font-size: 32px; padding-top: 20px;">♥ CHIMI ♥</h1>
+                <p style="text-align:center; opacity:0.5; font-size: 12px; padding: 10px 10px;">Moral alta , mente fria ,mala fama y buena vida.!!!</p>
+            </div>
 
-            <div class="tab" id="amigos" style="text-align:center;">
-                 <ul class="friends-list">
-                     <li><a href="https://xat.me/1544139450" target="_blank">NOMBRE - ID: Luna 1544139450</a></li>
-                     <li><a href="https://xat.me/289238842" target="_blank">NOMBRE - ID: Diana 289238842</a></li>
-                     <li><a href="https://xat.me/1527336526" target="_blank">NOMBRE - ID: Gonza 1527336526</a></li>
-                     <li><a href="https://xat.me/1528286401" target="_blank">NOMBRE - ID: Brt 1528286401</a></li>
-                     <li><a href="https://xat.me/69696" target="_blank">NOMBRE - ID: Rayko 69696</a></li>
-                 </ul>
-            </div>
+            <div class="tab" id="amigos" style="text-align:center;">
+                 <ul class="friends-list">
+                     <li><a href="https://xat.me/1544139450" target="_blank">NOMBRE - ID: Luna 1544139450</a></li>
+                     <li><a href="https://xat.me/289238842" target="_blank">NOMBRE - ID: Diana 289238842</a></li>
+                     <li><a href="https://xat.me/1527336526" target="_blank">NOMBRE - ID: Gonza 1527336526</a></li>
+                     <li><a href="https://xat.me/1528286401" target="_blank">NOMBRE - ID: Brt 1528286401</a></li>
+                     <li><a href="https://xat.me/69696" target="_blank">NOMBRE - ID: Rayko 69696</a></li>
+                 </ul>
+            </div>
 
-            <div class="tab" id="galeria">
-                <div class="gallery-grid">
-                    <div onclick="openZoom(this)"><img src="https://i.imgur.com/SwOWI7L.png"></div>
-                    <div onclick="openZoom(this)"><img src="https://i.imgur.com/FqW6Ms4.jpeg"></div>
-                    <div onclick="openZoom(this)"><img src="https://i.imgur.com/U754aIt.png"></div>
-                    <div onclick="openZoom(this)"><img src="https://i.imgur.com/noyw7Lk.png"></div>
-                    <div onclick="openZoom(this)"><img src="https://i.imgur.com/GZ9wKDe.png"></div>
-                    <div onclick="openZoom(this)"><img src="https://i.imgur.com/74d02nE.jpeg"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+            <div class="tab" id="galeria">
+                <div class="gallery-grid">
+                    <div onclick="openZoom(this)"><img src="https://i.imgur.com/SwOWI7L.png"></div>
+                    <div onclick="openZoom(this)"><img src="https://i.imgur.com/FqW6Ms4.jpeg"></div>
+                    <div onclick="openZoom(this)"><img src="https://i.imgur.com/U754aIt.png"></div>
+                    <div onclick="openZoom(this)"><img src="https://i.imgur.com/noyw7Lk.png"></div>
+                    <div onclick="openZoom(this)"><img src="https://i.imgur.com/GZ9wKDe.png"></div>
+                    <div onclick="openZoom(this)"><img src="https://i.imgur.com/74d02nE.jpeg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-    document.onkeydown = function(e) {
-        if (e.keyCode == 123) return false;
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
-        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
-    };
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123) return false;
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+    };
 
-    const playlist = [
-    { name: "Arcangel - La 8va Maravilla", url: "https://www.dropbox.com/scl/fi/v918symgcf0tc0v56m4b5/Arcangel-La-8va-Maravilla.mp3?rlkey=r4hhdfrmvcgpnum08cm3u8rlp&st=3frvm1fe&raw=1" },
-    { name: "El Coyote Y Su Banda Tierra Santa - Arboles De La Barranca", url: "https://www.dropbox.com/scl/fi/tb0nzxgnpkmbx982grdh8/El-Coyote-Y-Su-Banda-Tierra-Santa-Arboles-De-La-Barranca.mp3?rlkey=yj8l7wp83qbi5eu9nvhuh14lm&st=ep7wecti&raw=1" },
-    { name: "El Coyote y Su Banda Tierra Santa - Suspiros", url: "https://www.dropbox.com/scl/fi/wf7f92ksu0wqq2q7pyi0r/El-Coyote-y-Su-Banda-Tierra-Santa-Suspiros.mp3?rlkey=um3sx18ylgfnrvphyj91wv2xk&st=zvjam1wu&raw=1" },
-    { name: "Henry Fiol - Zumbale", url: "https://www.dropbox.com/scl/fi/xrl5rdkpavmn3spc212bx/Henry-Fiol-Zumbale.mp3?rlkey=t5g0iyj5k0tsiugofn3t6ctt8&st=0ynyn362&raw=1" },
-    { name: "Los Dareyes De La Sierra - Pasta", url: "https://www.dropbox.com/scl/fi/g95fqejzkl1h66cfxz4pq/Los-Dareyes-De-La-Sierra-Pasta.mp3?rlkey=30046gxqhqsw8wfafqci5w6jq&st=enoteqpz&raw=1" },
-    { name: "Los Dareyes De La Sierra - WHISKEY DE PINA", url: "https://www.dropbox.com/scl/fi/hd454wig2naqhfxan3pcf/Los-Dareyes-De-La-Sierra-WHISKEY-DE-PI-A.mp3?rlkey=2qeqntnc4yupkyd5v5p4wmgz6&st=9g32tznp&raw=1" }
+    const playlist = [
+    { name: "Arcangel - La 8va Maravilla", url: "https://www.dropbox.com/scl/fi/v918symgcf0tc0v56m4b5/Arcangel-La-8va-Maravilla.mp3?rlkey=r4hhdfrmvcgpnum08cm3u8rlp&st=3frvm1fe&raw=1" },
+    { name: "El Coyote Y Su Banda Tierra Santa - Arboles De La Barranca", url: "https://www.dropbox.com/scl/fi/tb0nzxgnpkmbx982grdh8/El-Coyote-Y-Su-Banda-Tierra-Santa-Arboles-De-La-Barranca.mp3?rlkey=yj8l7wp83qbi5eu9nvhuh14lm&st=ep7wecti&raw=1" },
+    { name: "El Coyote y Su Banda Tierra Santa - Suspiros", url: "https://www.dropbox.com/scl/fi/wf7f92ksu0wqq2q7pyi0r/El-Coyote-y-Su-Banda-Tierra-Santa-Suspiros.mp3?rlkey=um3sx18ylgfnrvphyj91wv2xk&st=zvjam1wu&raw=1" },
+    { name: "Henry Fiol - Zumbale", url: "https://www.dropbox.com/scl/fi/xrl5rdkpavmn3spc212bx/Henry-Fiol-Zumbale.mp3?rlkey=t5g0iyj5k0tsiugofn3t6ctt8&st=0ynyn362&raw=1" },
+    { name: "Los Dareyes De La Sierra - Pasta", url: "https://www.dropbox.com/scl/fi/g95fqejzkl1h66cfxz4pq/Los-Dareyes-De-La-Sierra-Pasta.mp3?rlkey=30046gxqhqsw8wfafqci5w6jq&st=enoteqpz&raw=1" },
+    { name: "Los Dareyes De La Sierra - WHISKEY DE PINA", url: "https://www.dropbox.com/scl/fi/hd454wig2naqhfxan3pcf/Los-Dareyes-De-La-Sierra-WHISKEY-DE-PI-A.mp3?rlkey=2qeqntnc4yupkyd5v5p4wmgz6&st=9g32tznp&raw=1" }
 ];
 
-    let currentTrack = 0;
-    const audio = document.getElementById("mainAudio");
-    const playBtn = document.getElementById("playBtn");
-    const musicName = document.getElementById("musicName");
-    const playerBox = document.getElementById("playerBox");
+    let currentTrack = 0;
+    const audio = document.getElementById("mainAudio");
+    const playBtn = document.getElementById("playBtn");
+    const musicName = document.getElementById("musicName");
+    const playerBox = document.getElementById("playerBox");
 
-    function loadTrack(idx) {
-        audio.src = playlist[idx].url;
-        musicName.innerText = playlist[idx].name;
-    }
+    function loadTrack(idx) {
+        audio.src = playlist[idx].url;
+        musicName.innerText = playlist[idx].name;
+    }
 
-    function togglePlay() {
-        if (audio.paused) {
-            audio.play();
-            playBtn.innerText = "⏸";
-            playerBox.classList.add("playing");
-        } else {
-            audio.pause();
-            playBtn.innerText = "▶";
-            playerBox.classList.remove("playing");
-        }
-    }
+    function togglePlay() {
+        if (audio.paused) {
+            audio.play();
+            playBtn.innerText = "⏸";
+            playerBox.classList.add("playing");
+        } else {
+            audio.pause();
+            playBtn.innerText = "▶";
+            playerBox.classList.remove("playing");
+        }
+    }
 
-    function changeVolume(val) { audio.volume = val; }
+    function changeVolume(val) { audio.volume = val; }
 
-    function next() {
-        currentTrack = (currentTrack + 1) % playlist.length;
-        loadTrack(currentTrack);
-        audio.play();
-        playBtn.innerText = "⏸";
-        playerBox.classList.add("playing");
-    }
+    function next() {
+        currentTrack = (currentTrack + 1) % playlist.length;
+        loadTrack(currentTrack);
+        audio.play();
+        playBtn.innerText = "⏸";
+        playerBox.classList.add("playing");
+    }
 
-    function prev() {
-        currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
-        loadTrack(currentTrack);
-        audio.play();
-        playBtn.innerText = "⏸";
-        playerBox.classList.add("playing");
-    }
+    function prev() {
+        currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+        loadTrack(currentTrack);
+        audio.play();
+        playBtn.innerText = "⏸";
+        playerBox.classList.add("playing");
+    }
 
-    document.getElementById("enterBtn").addEventListener("click", () => {
-        document.getElementById("intro").classList.add("hide");
-        document.getElementById("mainWrapper").classList.add("show");
-        loadTrack(currentTrack);
-        audio.volume = 0.5;
-        audio.play();
-        playBtn.innerText = "⏸";
-        playerBox.classList.add("playing");
-        startHeartRain();
-    });
+    document.getElementById("enterBtn").addEventListener("click", () => {
+        document.getElementById("intro").classList.add("hide");
+        document.getElementById("mainWrapper").classList.add("show");
+        loadTrack(currentTrack);
+        audio.volume = 0.5;
+        audio.play();
+        playBtn.innerText = "⏸";
+        playerBox.classList.add("playing");
+        startHeartRain();
+    });
 
-    function startHeartRain() {
-        const container = document.getElementById("heartsBg");
-        for (let i = 0; i < 20; i++) {
-            createHeart(container);
-        }
-    }
+    function startHeartRain() {
+        const container = document.getElementById("heartsBg");
+        for (let i = 0; i < 20; i++) {
+            createHeart(container);
+        }
+    }
 
-    function createHeart(container) {
-        const heart = document.createElement("div");
-        heart.classList.add("falling-heart");
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
-        heart.style.animationDelay = (Math.random() * 5) + "s";
-        container.appendChild(heart);
-        heart.addEventListener('animationiteration', () => { heart.style.left = Math.random() * 100 + "vw"; });
-    }
+    function createHeart(container) {
+        const heart = document.createElement("div");
+        heart.classList.add("falling-heart");
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+        heart.style.animationDelay = (Math.random() * 5) + "s";
+        container.appendChild(heart);
+        heart.addEventListener('animationiteration', () => { heart.style.left = Math.random() * 100 + "vw"; });
+    }
 
-    const menuSpans = document.querySelectorAll('#tabMenu span');
-    const tabs = document.querySelectorAll('.tab');
-    menuSpans.forEach(span => {
-        span.addEventListener('click', () => {
-            menuSpans.forEach(s => s.classList.remove('active'));
-            tabs.forEach(t => t.classList.remove('active'));
-            span.classList.add('active');
-            const target = span.getAttribute('data-tab');
-            document.getElementById(target).classList.add('active');
-        });
-    });
+    const menuSpans = document.querySelectorAll('#tabMenu span');
+    const tabs = document.querySelectorAll('.tab');
+    menuSpans.forEach(span => {
+        span.addEventListener('click', () => {
+            menuSpans.forEach(s => s.classList.remove('active'));
+            tabs.forEach(t => t.classList.remove('active'));
+            span.classList.add('active');
+            const target = span.getAttribute('data-tab');
+            document.getElementById(target).classList.add('active');
+        });
+    });
 
-    function openZoom(el) {
-        const src = el.querySelector('img').src;
-        document.getElementById("zoomImg").src = src;
-        document.getElementById("zoomOverlay").classList.add("active");
-    }
-    function closeZoom() { document.getElementById("zoomOverlay").classList.remove("active"); }
+    function openZoom(el) {
+        const src = el.querySelector('img').src;
+        document.getElementById("zoomImg").src = src;
+        document.getElementById("zoomOverlay").classList.add("active");
+    }
+    function closeZoom() { document.getElementById("zoomOverlay").classList.remove("active"); }
 
-    document.addEventListener("mousemove", (e) => {
-        const p = document.createElement("div");
-        p.classList.add("heart-particle");
-        p.style.left = e.clientX + "px"; p.style.top = e.clientY + "px";
-        document.body.appendChild(p);
-        setTimeout(() => p.remove(), 800);
-    });
+    document.addEventListener("mousemove", (e) => {
+        const p = document.createElement("div");
+        p.classList.add("heart-particle");
+        p.style.left = e.clientX + "px"; p.style.top = e.clientY + "px";
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 800);
+    });
 </script>
 </body>
 </html>
