@@ -152,8 +152,9 @@
 
         /* LISTA AMIGOS */
         .friends-list { list-style: none; padding-top: 10px; }
-        .friends-list li { margin-bottom: 10px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
-        .friends-list a { color: inherit; text-decoration: none; cursor: pointer !important; }
+        .friends-list li { margin-bottom: 10px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 5px; transition: all 0.3s ease; }
+        .friends-list li:hover { background: rgba(255, 255, 255, 0.15); transform: translateX(8px); border-radius: 5px; border-bottom-color: #ff4f92; }
+        .friends-list a { color: inherit; text-decoration: none; cursor: pointer !important; display: block; }
     </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
