@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         /* RESET E CURSOR */
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; cursor: default !important; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; cursor: default !important; user-select: none !important; -webkit-user-drag: none !important; }
         
         /* FONDO AJUSTADO PARA RESOLUÇÃO */
         body { 
@@ -16,9 +16,30 @@
             justify-content:center; 
             align-items:center; 
             background: url('https://i.imgur.com/6AOZsbC.gif') no-repeat center center fixed; 
-            background-size: 100% 100%; /* Força o encaixe total sem zoom excessivo */
+            background-size: 100% 100%; 
             overflow: hidden; 
         }
+
+        /* ALERTA DE SEGURANÇA */
+        #security-alert {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(235, 143, 181, 0.8);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 1000000;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s;
+            opacity: 0;
+            pointer-events: none;
+        }
+        #security-alert.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
         /* CHUVA DE CORAÇÕES */
         .hearts-container { position:fixed; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:-1; pointer-events:none; }
@@ -32,7 +53,7 @@
             100% { transform: translateY(110vh) rotate(45deg) scale(1.2); opacity:0; } 
         }
 
-        /* INTRO SEM FUNDO ROSA */
+        /* INTRO */
         .intro { 
             position:fixed; 
             inset:0; 
@@ -106,6 +127,8 @@
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 
+<div id="security-alert">Copyright - Acesso Proibido</div>
+
 <div class="intro" id="intro">
     <button class="enter-btn" id="enterBtn">ENTRAR</button>
 </div>
@@ -175,10 +198,24 @@
 </div>
 
 <script>
+    // BLOQUEIOS E ALERTA
+    const alertBox = document.getElementById("security-alert");
+    function showAlert() {
+        alertBox.classList.add("show");
+        setTimeout(() => alertBox.classList.remove("show"), 2000);
+    }
+
+    document.oncontextmenu = (e) => { e.preventDefault(); showAlert(); return false; };
+    document.ondragstart = (e) => { e.preventDefault(); return false; };
+
     document.onkeydown = function(e) {
-        if (e.keyCode == 123) return false;
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
-        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+        if (e.keyCode == 123 || 
+           (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) || 
+           (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) ||
+           (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0))) {
+            showAlert();
+            return false;
+        }
     };
 
     const playlist = [
@@ -231,10 +268,7 @@
         playerBox.classList.add("playing");
     }
 
-    // LÓGICA PARA Tocar AUTOMATICAMENTE A PRÓXIMA
-    audio.addEventListener("ended", () => {
-        next();
-    });
+    audio.addEventListener("ended", () => { next(); });
 
     document.getElementById("enterBtn").addEventListener("click", () => {
         document.getElementById("intro").classList.add("hide");
@@ -249,9 +283,7 @@
 
     function startHeartRain() {
         const container = document.getElementById("heartsBg");
-        for (let i = 0; i < 20; i++) {
-            createHeart(container);
-        }
+        for (let i = 0; i < 20; i++) { createHeart(container); }
     }
 
     function createHeart(container) {
