@@ -15,7 +15,7 @@
             display:flex; 
             justify-content:center; 
             align-items:center; 
-            background-color: #2b121a; /* Cor de segurança */
+            background-color: #2b121a; /* Cor de base sólida para evitar clarões brancos */
             background-image: url('https://i.imgur.com/bLUrRsa.gif');
             background-repeat: no-repeat;
             background-position: center center;
@@ -208,6 +208,7 @@
 </div>
 
 <script>
+    // BLOQUEIOS
     const alertBox = document.getElementById("security-alert");
     function showAlert() {
         alertBox.classList.add("show");
@@ -224,6 +225,7 @@
         }
     };
 
+    // PLAYLIST
     const playlist = [
         { name: "Arcangel - La 8va Maravilla", url: "https://www.dropbox.com/scl/fi/v918symgcf0tc0v56m4b5/Arcangel-La-8va-Maravilla.mp3?rlkey=r4hhdfrmvcgpnum08cm3u8rlp&st=3frvm1fe&raw=1" },
         { name: "El Coyote Y Su Banda Tierra Santa - Arboles De La Barranca", url: "https://www.dropbox.com/scl/fi/tb0nzxgnpkmbx982grdh8/El-Coyote-Y-Su-Banda-Tierra-Santa-Arboles-De-La-Barranca.mp3?rlkey=yj8l7wp83qbi5eu9nvhuh14lm&st=ep7wecti&raw=1" },
@@ -255,6 +257,7 @@
 
     audio.addEventListener("ended", () => { next(); });
 
+    // ENTRADA
     document.getElementById("enterBtn").addEventListener("click", () => {
         document.getElementById("intro").classList.add("hide");
         document.getElementById("mainWrapper").classList.add("show");
@@ -266,6 +269,7 @@
         startHeartRain();
     });
 
+    // CHUVA DE CORAÇÕES
     function startHeartRain() {
         const container = document.getElementById("heartsBg");
         for (let i = 0; i < 20; i++) { createHeart(container); }
@@ -281,6 +285,7 @@
         heart.addEventListener('animationiteration', () => { heart.style.left = Math.random() * 100 + "vw"; });
     }
 
+    // TABS
     const menuSpans = document.querySelectorAll('#tabMenu span');
     const tabs = document.querySelectorAll('.tab');
     menuSpans.forEach(span => {
@@ -293,6 +298,7 @@
         });
     });
 
+    // ZOOM
     function openZoom(el) {
         const src = el.querySelector('img').src;
         document.getElementById("zoomImg").src = src;
@@ -300,6 +306,7 @@
     }
     function closeZoom() { document.getElementById("zoomOverlay").classList.remove("active"); }
 
+    // RASTRO DE MOUSE
     document.addEventListener("mousemove", (e) => {
         const p = document.createElement("div");
         p.classList.add("heart-particle");
