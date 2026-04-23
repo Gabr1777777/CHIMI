@@ -9,14 +9,14 @@
         /* RESET E CURSOR */
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; cursor: default !important; }
         
-        /* FONDO CON NOVO GIF AJUSTADO */
+        /* FONDO AJUSTADO PARA RESOLUÇÃO */
         body { 
             height:100vh; 
             display:flex; 
             justify-content:center; 
             align-items:center; 
             background: url('https://i.imgur.com/SYXIL2T.gif') no-repeat center center fixed; 
-            background-size: cover; 
+            background-size: 100% 100%; /* Força o encaixe total sem zoom excessivo */
             overflow: hidden; 
         }
 
@@ -32,8 +32,18 @@
             100% { transform: translateY(110vh) rotate(45deg) scale(1.2); opacity:0; } 
         }
 
-        /* INTRO - FUNDO ALTERADO PARA O GIF */
-        .intro { position:fixed; inset:0; background: url('https://i.imgur.com/SYXIL2T.gif') no-repeat center center fixed; background-size: cover; display:flex; justify-content:center; align-items:center; z-index:9999; transition:1s; }
+        /* INTRO SEM FUNDO ROSA */
+        .intro { 
+            position:fixed; 
+            inset:0; 
+            background: url('https://i.imgur.com/SYXIL2T.gif') no-repeat center center fixed; 
+            background-size: 100% 100%; 
+            display:flex; 
+            justify-content:center; 
+            align-items:center; 
+            z-index:9999; 
+            transition:1s; 
+        }
         .intro.hide { opacity:0; pointer-events:none; }
         .enter-btn { padding:14px 40px; border-radius:30px; border:none; background:linear-gradient(90deg,#f579a8,#fc84b6); color:#fff; letter-spacing:2px; font-weight:600; cursor: pointer !important; }
 
@@ -137,7 +147,7 @@
         <div class="tabs-content">
             <div class="tab active" id="perfil">
                 <h1 style="text-align:center; font-size: 32px; padding-top: 20px;">♥ CHIMI ♥</h1>
-                <p style="text-align:center; opacity:0.5; font-size: 12px; padding: 10px 10px;">Moral alta , mente fria ,mala fama y buena vida.!!!</p>
+                <p style="text-align:center; opacity:0.5; font-size: 12px; padding: 10px 10px;">Moral alta , mente fria ,mala fama y boa vida.!!!</p>
             </div>
 
             <div class="tab" id="amigos" style="text-align:center;">
