@@ -231,6 +231,11 @@
         playerBox.classList.add("playing");
     }
 
+    // LÓGICA PARA Tocar AUTOMATICAMENTE A PRÓXIMA
+    audio.addEventListener("ended", () => {
+        next();
+    });
+
     document.getElementById("enterBtn").addEventListener("click", () => {
         document.getElementById("intro").classList.add("hide");
         document.getElementById("mainWrapper").classList.add("show");
